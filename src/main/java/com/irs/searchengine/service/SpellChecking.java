@@ -7,7 +7,6 @@ public class SpellChecking {
 	
 	// public static ArrayList<String> key = new ArrayList<String>();
 	// public static Hashtable<String, Integer> numbers = new Hashtable<String, Integer>();
-	private static Hashtable<String, Integer> editDis = new Hashtable<>();
 	private static ArrayList<String> vocab = new ArrayList<>();
 	// public static Scanner sc = new Scanner(System.in);
 
@@ -18,14 +17,15 @@ public class SpellChecking {
 		assert texts != null;
 		for (File txt : texts) {
 			BufferedReader br = new BufferedReader(new FileReader(txt));
-			String str = null;
+			String str;
 			while ((str = br.readLine()) != null) {
 				line.append(str);
 			}
 			br.close();
 		}
 		String fullText = line.toString();
-		StringTokenizer tokenizer = new StringTokenizer(fullText, " ,`*$|~(){}_@><=+[]\\?;/&#<-.!:\"\"''\n");
+		StringTokenizer tokenizer =
+				new StringTokenizer(fullText, "0123456789 ,`*$|~(){}_@><=+[]\\?;/&#-.!:\"'\n\t\r");
 		while (tokenizer.hasMoreTokens()) {
 			String tk = tokenizer.nextToken().toLowerCase(Locale.ROOT);
 			if (!vocab.contains(tk)) {
@@ -58,19 +58,13 @@ public class SpellChecking {
 	public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> map)
 	{
 		// Create a list from elements of HashMap
-		List<Map.Entry<String, Integer> > list = new LinkedList<Map.Entry<String, Integer> >(map.entrySet());
+		List<Map.Entry<String, Integer> > list = new LinkedList<>(map.entrySet());
 
 		// Sort the list
-		Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
-			public int compare(Map.Entry<String, Integer> o1,
-							   Map.Entry<String, Integer> o2)
-			{
-				return (o1.getValue()).compareTo(o2.getValue());
-			}
-		});
+		list.sort(Map.Entry.comparingByValue());
 
 		// put data from sorted list to hashmap
-		HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
+		HashMap<String, Integer> temp = new LinkedHashMap<>();
 		for (Map.Entry<String, Integer> aa : list) {
 			temp.put(aa.getKey(), aa.getValue());
 		}
@@ -134,18 +128,10 @@ public class SpellChecking {
 	public static int editDistance(String word1, String word2) {
 		int len1 = word1.length();
 		int len2 = word2.length();
-	 
-		// len1+1, len2+1, because finally return dp[len1][len2]
-		int[][] dp = new int[len1 + 1][len2 + 1];
-	 
-		for (int i = 0; i <= len1; i++) {
-			dp[i][0] = i;
-		}
-	 
-		for (int j = 0; j <= len2; j++) {
-			dp[0][j] = j;
-		}
-	 
+		int[][] dp = new int[len1 + 1][len2 + 1];	// Edit distance table
+
+		for (int i = 0; i <= len1; i++) { dp[i][0] = i;	}
+		for (int j = 0; j <= len2; j++) { dp[0][j] = j; }
 		//iterate though, and check last char
 		for (int i = 0; i < len1; i++) {
 			char c1 = word1.charAt(i);
@@ -167,7 +153,6 @@ public class SpellChecking {
 				}
 			}
 		}
-	 
 		return dp[len1][len2];
 	}
 
