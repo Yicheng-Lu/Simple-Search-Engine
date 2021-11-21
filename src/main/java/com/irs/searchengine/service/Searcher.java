@@ -8,14 +8,13 @@ Description of question:
 *  @version November 20, 2020
 */
 
-import com.irs.searchengine.dto.docInfo;
+import com.irs.searchengine.dto.Doc;
 import com.irs.searchengine.ref.*;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -72,13 +71,13 @@ public class Searcher {
         return pq;
     }
 
-    public docInfo[] queue2List(PriorityQueue<Integer, String> pq) throws IOException{
-        docInfo[] queryResults = new docInfo[pq.size()];
+    public Doc[] queue2List(PriorityQueue<Integer, String> pq) throws IOException{
+        Doc[] queryResults = new Doc[pq.size()];
         Iterator<Entry<Integer, String>> s = pq.iterator();
         int flag = 0;
         while(s.hasNext()) {
             Entry<Integer, String> tmp = s.next();
-            docInfo doc = new docInfo(tmp.getKey(), tmp.getValue());
+            Doc doc = new Doc(tmp.getKey(), tmp.getValue());
             queryResults[(pq.size() - 1) - flag] = doc;
             flag++;
         }
