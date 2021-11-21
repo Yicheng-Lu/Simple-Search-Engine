@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.irs</groupId>
     <artifactId>SearchEngine</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>SearchEngine</name>
     <description>SearchEngine</description>
     <properties>
