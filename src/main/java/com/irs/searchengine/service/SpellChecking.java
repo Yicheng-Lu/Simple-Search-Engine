@@ -11,6 +11,8 @@ public class SpellChecking {
 	public static Hashtable<String, Integer> numbers = new Hashtable<String, Integer>();
 	public static Scanner sc = new Scanner(System.in);
 
+
+
 	/*using regex to find similar string to pattern */
 	public static String[] alternativeWord(String s1) throws FileNotFoundException {
 		ArrayList<String> altWords = new ArrayList<>();
@@ -20,19 +22,13 @@ public class SpellChecking {
 		Matcher m3 = r3.matcher(line);
 
 		// Search new text
-		File newFileLocation = new File("src/main/resources/static/dat/text/");
-		File[] newFileArray = newFileLocation.listFiles();
-		for (File item : newFileArray) {
+		File txts = new File("src/main/resources/static/dat/text/");
+		File[] files = txts.listFiles();
+		for (File item : files) {
 			findKeyword(item, m3, s1);
 		}
-		// Search old
-		File oldFileLocation = new File("src/main/resources/static/dat/w3c_web_pages_text/");
-		File[] oldFileArray = oldFileLocation.listFiles();
-		for (File file : oldFileArray) {
-			findKeyword(file, m3, s1);
-		}
 
-		System.out.print("There are some alternative keyword: ");
+		// System.out.print("There are some alternative keyword: ");
 		for(Map.Entry<String, Integer> entry: numbers.entrySet()){
 			if(entry.getValue() == 0) {
 				break;

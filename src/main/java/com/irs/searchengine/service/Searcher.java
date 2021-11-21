@@ -48,43 +48,24 @@ public class Searcher {
     }
 
     public static PriorityQueue<Integer,String> occurrences(String scan) throws IOException {
-        String oldTxtPath = "src/main/resources/static/dat/w3c_web_pages_text/";
-        String oldHtmlPath = "src/main/resources/static/dat/w3c_web_pages/";
-        String newTxtPath = "src/main/resources/static/dat/text/";
-        String newHtmlPath = "src/main/resources/static/dat/html/";
+        String txtPath = "src/main/resources/static/dat/text/";
+        String htmlPath = "src/main/resources/static/dat/html/";
 
-        File oldText = new File(oldTxtPath);
-        File[] oldFiles = oldText.listFiles();
-        File oldPages = new File(oldHtmlPath);
-        File[] oldWebs = oldPages.listFiles();
-        File newText = new File(newTxtPath);
-        File[] newFiles = newText.listFiles();
-        File newPages = new File(newHtmlPath);
-        File[] newWebs = newPages.listFiles();
+        File txt = new File(txtPath);
+        File[] Files = txt.listFiles();
+        File html = new File(htmlPath);
+        File[] Webs = html.listFiles();
 
         PriorityQueue<Integer,String> pq = new SortedPriorityQueue<>();
         // scan new files
-        for (int i = 0; i < newFiles.length; i++) {
-            if (newFiles[i].isFile()) {
+        for (int i = 0; i < Files.length; i++) {
+            if (Files[i].isFile()) {
                 TST<Integer> tst = new TST<Integer>();
-                String path = (newTxtPath + newFiles[i].getName());
+                String path = (txtPath + Files[i].getName());
                 scanFile(path, tst);// get occurrence from matching given word
                 if (tst.get(scan) != null) {
                     //store occurrence and web name in priority queue
-                    pq.insert(tst.get(scan), newWebs[i].getName());
-                }
-            }
-        }
-
-        // scan old files
-        for (int i = 0; i < oldFiles.length; i++) {
-            if (oldFiles[i].isFile()) {
-                TST<Integer> tst = new TST<Integer>();
-                String path = (oldTxtPath + oldFiles[i].getName());
-                scanFile(path, tst);// get occurrence from matching given word
-                if (tst.get(scan) != null) {
-                    //store occurrence and web name in priority queue
-                    pq.insert(tst.get(scan), oldWebs[i].getName());
+                    pq.insert(tst.get(scan), Webs[i].getName());
                 }
             }
         }
