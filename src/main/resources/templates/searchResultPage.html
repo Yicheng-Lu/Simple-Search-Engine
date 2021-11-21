@@ -52,12 +52,14 @@
         <div class="col-8 offset-2">
             <p class="fst-italic fw-light" th:text="'Find ' + ${numRes} + ' results. Time usage: ' + ${timeUsage_res} + ' ms.'"></p><br>
         </div>
-        <div class="card col-8 offset-2" th:each="doc:${resList}">
-            <div class="card-body">
-                <span th:text="'[Rank: ' + ${doc.getRank()} + ']  ' + ${doc.getName()}"></span>
+        <div class="col-8 offset-2" th:each="doc:${resList}">
+            <div class="card">
+                <div class="card-body">
+                    <span th:text="'[Rank: ' + ${doc.getRank()} + ']  ' + ${doc.getName()}"></span>
+                </div>
             </div>
+            <br>
         </div>
-        <br>
     </div>
     <div th:if="${hasRes}==false">
         <div class="col-8 offset-2">
@@ -65,9 +67,9 @@
         </div>
         <div class="card col-8 offset-2">
             <div class="card-body">
-                <h6>Alternative words: </h6>
+                <h6 th:text="'Alternative words for \'' + ${getquery} + '\' :'"></h6>
                 <div th:each="w:${alternatives}">
-                    <span th:text="${w}"></span>
+                    <li th:text="${w}"></li>
                 </div>
             </div>
         </div>

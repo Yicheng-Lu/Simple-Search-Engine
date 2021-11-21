@@ -1,10 +1,10 @@
 package com.irs.searchengine.dto;
 
-public class docInfo {
+public class Doc {
     private int rank;
     private String name;
 
-    public docInfo(int rank, String name) {
+    public Doc(int rank, String name) {
         this.rank = rank;
         this.name = name;
     }
